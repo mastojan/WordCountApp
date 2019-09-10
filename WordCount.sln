@@ -7,6 +7,8 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "WordCount", "WordCount\Word
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEndSvc", "FrontEndSvc\FrontEndSvc.csproj", "{E49798D4-20C0-4F77-9F7C-B55AC4E056FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrchestratorStatefulSvc", "OrchestratorStatefulSvc\OrchestratorStatefulSvc.csproj", "{F3543231-6A14-4081-B782-E5180A9EF176}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{E49798D4-20C0-4F77-9F7C-B55AC4E056FA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E49798D4-20C0-4F77-9F7C-B55AC4E056FA}.Release|x64.ActiveCfg = Release|Any CPU
 		{E49798D4-20C0-4F77-9F7C-B55AC4E056FA}.Release|x64.Build.0 = Release|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Debug|x64.Build.0 = Debug|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Release|x64.ActiveCfg = Release|Any CPU
+		{F3543231-6A14-4081-B782-E5180A9EF176}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

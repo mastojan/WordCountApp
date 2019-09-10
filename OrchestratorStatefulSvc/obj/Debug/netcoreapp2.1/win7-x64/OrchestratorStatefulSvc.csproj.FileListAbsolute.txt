@@ -1,0 +1,3 @@
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.csproj.CoreCompileInputs.cache
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.AssemblyInfoInputs.cache
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.AssemblyInfo.cs
