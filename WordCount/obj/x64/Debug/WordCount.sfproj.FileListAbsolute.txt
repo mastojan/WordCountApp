@@ -1,0 +1,1 @@
+C:\Users\v-mastoj\source\repos\WordCount\WordCount\obj\x64\Debug\WordCount.sfproj.CoreCompileInputs.cache

@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Word Count";
+}
+
+<div ng-controller="WordCountController" ng-init="refresh()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 text-center">
+                <h2>Word Count App</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <form class="col-xs-12 center-block">
+                    <div class="col-xs-6 form-group">
+                        <textarea id="txtAdd" class="form-control" placeholder="Source" ng-model="sourceText"></textarea>
+                    </div>
+                    <button id="btnAdd" class="btn btn-default" ng-click="process(sourceText)">
+                        Count
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="chart-container">
+
+        </div>
+
+    </div>
+</div>
