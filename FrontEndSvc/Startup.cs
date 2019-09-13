@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Classifier.Web.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,6 +49,10 @@ namespace FrontEndSvc
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseSignalR(builder => {
+                builder.MapHub<ResultHub>("/resulthub");
+            });
 
             app.UseMvc(routes =>
             {

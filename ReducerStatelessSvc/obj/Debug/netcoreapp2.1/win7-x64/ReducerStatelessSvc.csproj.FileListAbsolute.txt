@@ -1,0 +1,17 @@
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.csproj.CoreCompileInputs.cache
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.AssemblyInfoInputs.cache
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.AssemblyInfo.cs
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\hostpolicy.dll
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\hostfxr.dll
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.exe
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.deps.json
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.runtimeconfig.json
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.runtimeconfig.dev.json
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.dll
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.pdb
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.csprojAssemblyReference.cache
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.RazorAssemblyInfo.cache
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.RazorAssemblyInfo.cs
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.RazorTargetAssemblyInfo.cache
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.dll
+C:\Users\v-mastoj\source\repos\WordCount\ReducerStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\ReducerStatelessSvc.pdb

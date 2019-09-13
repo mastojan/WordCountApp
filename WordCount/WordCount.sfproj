@@ -35,6 +35,13 @@
     <ProjectReference Include="..\FrontEndSvc\FrontEndSvc.csproj">
       <ServiceLaunchUrl>http://{MachineName}:{ServicePort}/</ServiceLaunchUrl>
     </ProjectReference>
+    <ProjectReference Include="..\MapStatelessSvc\MapStatelessSvc.csproj">
+      <ServiceLaunchUrl>http://{MachineName}:{ServicePort}/api/values</ServiceLaunchUrl>
+    </ProjectReference>
+    <ProjectReference Include="..\OrchestratorStatefulSvc\OrchestratorStatefulSvc.csproj" />
+    <ProjectReference Include="..\ReducerStatelessSvc\ReducerStatelessSvc.csproj">
+      <ServiceLaunchUrl>http://{MachineName}:{ServicePort}/api/values</ServiceLaunchUrl>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

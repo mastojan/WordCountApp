@@ -43,7 +43,8 @@ namespace FrontEndSvc
                                 services => services
                                     .AddSingleton<HttpClient>(new HttpClient())
                                     .AddSingleton<FabricClient>(new FabricClient())
-                                    .AddSingleton<StatelessServiceContext>(serviceContext))
+                                    .AddSingleton<StatelessServiceContext>(serviceContext)
+                                    .AddSignalR())
                             .UseContentRoot(Directory.GetCurrentDirectory())
                             .UseStartup<Startup>()
                             .UseServiceFabricIntegration(listener, ServiceFabricIntegrationOptions.None)
@@ -51,6 +52,11 @@ namespace FrontEndSvc
                             .Build();
                     }))
             };
+        }
+
+        internal static Uri GetOrchestratorStatefulSvcName(ServiceContext context)
+        {
+            return new Uri($"{context.CodePackageActivationContext.ApplicationName}/OrchestratorStatefulSvc");
         }
     }
 }

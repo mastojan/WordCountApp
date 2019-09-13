@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Fabric;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Classifier.Web.Hubs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json.Linq;
 
 namespace FrontEndSvc.Controllers
 {
@@ -17,12 +22,14 @@ namespace FrontEndSvc.Controllers
         private readonly HttpClient httpClient;
         private readonly StatelessServiceContext context;
         private readonly FabricClient fabricClient;
+        private readonly IHubContext<ResultHub> hubContext;
 
-        public FrontEndSvcController(HttpClient httpClient, StatelessServiceContext context, FabricClient fabricClient)
+        public FrontEndSvcController(HttpClient httpClient, StatelessServiceContext context, FabricClient fabricClient, IHubContext<ResultHub> hubContext)
         {
             this.httpClient = httpClient;
             this.context = context;
             this.fabricClient = fabricClient;
+            this.hubContext = hubContext;
         }
 
         // Post: api/WordCount
@@ -30,23 +37,37 @@ namespace FrontEndSvc.Controllers
         public async Task<IActionResult> Post([FromBody] string sourceText)
         {
             ServiceEventSource.Current.ServiceMessage(this.context, "Received param: " + sourceText);
-            MatchCollection collection = Regex.Matches(sourceText, @"\b\w+\b");
-            Dictionary<string, int> counts = new Dictionary<string, int>();
-            foreach(Match match in collection)
+
+            Uri serviceName = FrontEndSvc.GetOrchestratorStatefulSvcName(this.context);
+            Uri proxyAddress = this.GetProxyAddress(serviceName);
+            int partitionKey = 0;
+
+            string proxyUrl = $"{proxyAddress}/api/Orchestrator/jobs?PartitionKey={partitionKey}&PartitionKind=Int64Range";
+
+            StringContent postContent = new StringContent('"' + sourceText + '"', Encoding.UTF8, "application/json");
+            postContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            using (HttpResponseMessage response = await this.httpClient.PostAsync(proxyUrl, postContent))
             {
-                string s = match.Value.ToLower();
-                if(counts.ContainsKey(s))
+                return new ContentResult()
                 {
-                    counts[s]++;
-                }
-                else
-                {
-                    counts[s] = 1;
-                }
-
+                    StatusCode = (int)response.StatusCode,
+                    Content = await response.Content.ReadAsStringAsync()
+                };
             }
+            
+        }
 
-            return Json(counts);
+        [HttpPost("complete")]
+        public async Task<IActionResult> PostCompletedJob([FromBody] JToken wordCloudData)
+        {
+            await this.hubContext.Clients.All.SendAsync("jobComplete", wordCloudData);
+            return new OkResult();
+        }
+
+        private Uri GetProxyAddress(Uri serviceName)
+        {
+            return new Uri($"http://localhost:19081{serviceName.AbsolutePath}");
         }
     }
 }

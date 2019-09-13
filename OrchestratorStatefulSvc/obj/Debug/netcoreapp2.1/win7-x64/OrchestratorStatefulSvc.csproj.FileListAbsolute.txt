@@ -1,3 +1,17 @@
 C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.csproj.CoreCompileInputs.cache
 C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.AssemblyInfoInputs.cache
 C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.AssemblyInfo.cs
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\hostpolicy.dll
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\hostfxr.dll
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.exe
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.deps.json
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.runtimeconfig.json
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.runtimeconfig.dev.json
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.dll
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.pdb
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.csprojAssemblyReference.cache
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.RazorAssemblyInfo.cache
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.RazorAssemblyInfo.cs
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.RazorTargetAssemblyInfo.cache
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.dll
+C:\Users\v-mastoj\source\repos\WordCount\OrchestratorStatefulSvc\obj\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.pdb

@@ -5,9 +5,13 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "WordCount", "WordCount\WordCount.sfproj", "{11CD8F31-742C-440D-8688-9643F6826011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEndSvc", "FrontEndSvc\FrontEndSvc.csproj", "{E49798D4-20C0-4F77-9F7C-B55AC4E056FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEndSvc", "FrontEndSvc\FrontEndSvc.csproj", "{E49798D4-20C0-4F77-9F7C-B55AC4E056FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrchestratorStatefulSvc", "OrchestratorStatefulSvc\OrchestratorStatefulSvc.csproj", "{F3543231-6A14-4081-B782-E5180A9EF176}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchestratorStatefulSvc", "OrchestratorStatefulSvc\OrchestratorStatefulSvc.csproj", "{F3543231-6A14-4081-B782-E5180A9EF176}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapStatelessSvc", "MapStatelessSvc\MapStatelessSvc.csproj", "{0EB5E951-BDB6-4A4E-9690-946A25F925CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReducerStatelessSvc", "ReducerStatelessSvc\ReducerStatelessSvc.csproj", "{325810CD-81A8-4672-8EDA-B6D732D57438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,22 @@ Global
 		{F3543231-6A14-4081-B782-E5180A9EF176}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3543231-6A14-4081-B782-E5180A9EF176}.Release|x64.ActiveCfg = Release|Any CPU
 		{F3543231-6A14-4081-B782-E5180A9EF176}.Release|x64.Build.0 = Release|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Debug|x64.Build.0 = Debug|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Release|x64.ActiveCfg = Release|Any CPU
+		{0EB5E951-BDB6-4A4E-9690-946A25F925CD}.Release|x64.Build.0 = Release|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Debug|x64.Build.0 = Debug|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Release|x64.ActiveCfg = Release|Any CPU
+		{325810CD-81A8-4672-8EDA-B6D732D57438}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
