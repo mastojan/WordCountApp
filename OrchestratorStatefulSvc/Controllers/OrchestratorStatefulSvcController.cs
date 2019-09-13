@@ -59,6 +59,7 @@
                     }
 
                     task = new MapTask(jobGuid, sourceText.Substring(cursorPos, nextCursorPos - cursorPos));
+                    task.State = MapTask.StateType.InQueue;
                     job.Tasks.Add(task.Uuid, false);
 
                     await allTasks.AddAsync(tx, task.Uuid, task);
@@ -67,6 +68,7 @@
                     cursorPos = nextCursorPos + 1;
                 }
                 task = new MapTask(jobGuid, sourceText.Substring(cursorPos));
+                task.State = MapTask.StateType.InQueue;
                 job.Tasks.Add(task.Uuid, false);
 
                 await allTasks.AddAsync(tx, task.Uuid, task);
@@ -91,14 +93,18 @@
         [HttpGet("jobs")]
         public async Task<IActionResult> GetTaskFromQueue()
         {
+            var allTasks = await this.stateManager_.GetOrAddAsync<IReliableDictionary<Guid, MapTask>>("allTasks");
             var tasksQueue = await this.stateManager_.GetOrAddAsync<IReliableConcurrentQueue<MapTask>>("tasksQueue");
             using (var tx = this.stateManager_.CreateTransaction())
             {
                 var conditionalValue = await tasksQueue.TryDequeueAsync(tx);
-                await tx.CommitAsync();
 
                 if(conditionalValue.HasValue)
                 {
+                    MapTask task = conditionalValue.Value;
+                    task.State = MapTask.StateType.Processing;
+                    await allTasks.SetAsync(tx, task.Uuid, task);
+                    await tx.CommitAsync();
                     return Json(conditionalValue.Value);
                 }
                 else
@@ -149,6 +155,7 @@
                     }
                     else
                     {
+                        task.State = MapTask.StateType.Completed;
                         await jobsDictionary.SetAsync(tx, job.Uuid, job);
                         await allTasks.SetAsync(tx, task.Uuid, task);
                     }

@@ -98,7 +98,7 @@ namespace MapStatelessSvc
                                 break;
                             }
 
-                            await Task.Delay(2000);
+                            //await Task.Delay(2000);
 
                             var serializedJson = JsonConvert.SerializeObject(task);
                             using (HttpResponseMessage putTaskResponse = await httpClient.PutAsync($"{proxyUrl}/{task.ParentJobUuid}?PartitionKey=0&PartitionKind=Int64Range", new StringContent(serializedJson, UnicodeEncoding.UTF8, "application/json")))
@@ -121,6 +121,10 @@ namespace MapStatelessSvc
                 catch(TaskCanceledException e)
                 {
                     ServiceEventSource.Current.ServiceMessage(this.Context, "MapStatelessSvc.RunAsync canceled: " + e.StackTrace);
+                }
+                catch(Exception e)
+                {
+                    ServiceEventSource.Current.ServiceMessage(this.Context, "MapStatelessSvc exception: " + e.StackTrace);
                 }
             }
         }

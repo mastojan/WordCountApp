@@ -68,8 +68,10 @@ namespace OrchestratorStatefulSvc
                         var enumerator = (await allTasks.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
                         while(await enumerator.MoveNextAsync(cancellationToken))
                         {
-                            if(enumerator.Current.Value.Output == null)
+                            if(enumerator.Current.Value.State == MapTask.StateType.Processing)
                             {
+                                enumerator.Current.Value.State = MapTask.StateType.InQueue;
+                                await allTasks.SetAsync(tx, enumerator.Current.Key, enumerator.Current.Value);
                                 await tasksQueue.EnqueueAsync(tx, enumerator.Current.Value);
                             }
                         }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="WordCountType" ApplicationTypeVersion="1.0.1" xmlns="http://schemas.microsoft.com/2011/01/fabric" ManifestId="11cd8f31-742c-440d-8688-9643f6826011">
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="WordCountType" ApplicationTypeVersion="1.0.2" xmlns="http://schemas.microsoft.com/2011/01/fabric" ManifestId="11cd8f31-742c-440d-8688-9643f6826011">
   <Parameters>
     <Parameter Name="ReducerStatelessSvc_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
     <Parameter Name="ReducerStatelessSvc_InstanceCount" DefaultValue="-1" />
@@ -16,28 +16,28 @@
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ReducerStatelessSvcPkg" ServiceManifestVersion="1.0.0" />
+    <ServiceManifestRef ServiceManifestName="ReducerStatelessSvcPkg" ServiceManifestVersion="1.0.2" />
     <ConfigOverrides />
     <EnvironmentOverrides CodePackageRef="code">
       <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[ReducerStatelessSvc_ASPNETCORE_ENVIRONMENT]" />
     </EnvironmentOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="OrchestratorStatefulSvcPkg" ServiceManifestVersion="1.0.0" />
+    <ServiceManifestRef ServiceManifestName="OrchestratorStatefulSvcPkg" ServiceManifestVersion="1.0.2" />
     <ConfigOverrides />
     <EnvironmentOverrides CodePackageRef="code">
       <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[OrchestratorStatefulSvc_ASPNETCORE_ENVIRONMENT]" />
     </EnvironmentOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="MapStatelessSvcPkg" ServiceManifestVersion="1.0.0" />
+    <ServiceManifestRef ServiceManifestName="MapStatelessSvcPkg" ServiceManifestVersion="1.0.2" />
     <ConfigOverrides />
     <EnvironmentOverrides CodePackageRef="code">
       <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[MapStatelessSvc_ASPNETCORE_ENVIRONMENT]" />
     </EnvironmentOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="FrontEndSvcPkg" ServiceManifestVersion="1.0.0" />
+    <ServiceManifestRef ServiceManifestName="FrontEndSvcPkg" ServiceManifestVersion="1.0.2" />
     <ConfigOverrides />
     <EnvironmentOverrides CodePackageRef="code">
       <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="[FrontEndSvc_ASPNETCORE_ENVIRONMENT]" />
