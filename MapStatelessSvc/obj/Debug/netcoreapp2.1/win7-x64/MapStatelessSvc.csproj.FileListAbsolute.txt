@@ -18,3 +18,4 @@ C:\Users\v-mastoj\source\repos\WordCount\MapStatelessSvc\obj\Debug\netcoreapp2.1
 C:\Users\v-mastoj\source\repos\WordCount\MapStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.dll
 C:\Users\v-mastoj\source\repos\WordCount\MapStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.pdb
 C:\Users\v-mastoj\source\repos\WordCount\MapStatelessSvc\obj\Debug\netcoreapp2.1\win7-x64\MapStatelessSvc.csproj.CopyComplete
+C:\Users\v-mastoj\source\repos\WordCount\MapStatelessSvc\bin\Debug\netcoreapp2.1\win7-x64\OrchestratorStatefulSvc.exe

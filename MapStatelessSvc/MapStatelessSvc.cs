@@ -98,7 +98,7 @@ namespace MapStatelessSvc
                                 break;
                             }
 
-                            await Task.Delay(2000);
+                            //await Task.Delay(2000);
 
                             var serializedJson = JsonConvert.SerializeObject(task);
                             using (HttpResponseMessage putTaskResponse = await httpClient.PutAsync($"{proxyUrl}/{task.ParentJobUuid}?PartitionKey=0&PartitionKind=Int64Range", new StringContent(serializedJson, UnicodeEncoding.UTF8, "application/json")))
@@ -111,7 +111,7 @@ namespace MapStatelessSvc
 
                             }
 
-                            ServiceEventSource.Current.ServiceMessage(this.Context, "Task{0}-Job{1} completed", task.Index, task.ParentJobUuid);
+                            ServiceEventSource.Current.ServiceMessage(this.Context, "Task{0}-Job{1} completed", task.Uuid, task.ParentJobUuid);
 
                         }
 

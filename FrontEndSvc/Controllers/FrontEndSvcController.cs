@@ -36,8 +36,6 @@ namespace FrontEndSvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string sourceText)
         {
-            ServiceEventSource.Current.ServiceMessage(this.context, "Received param: " + sourceText);
-
             Uri serviceName = FrontEndSvc.GetOrchestratorStatefulSvcName(this.context);
             Uri proxyAddress = this.GetProxyAddress(serviceName);
             int partitionKey = 0;

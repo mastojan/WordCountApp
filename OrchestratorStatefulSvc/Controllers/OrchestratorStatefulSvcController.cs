@@ -40,11 +40,38 @@
 
             var jobsDictionary = await this.stateManager_.GetOrAddAsync<IReliableDictionary<Guid, JobObject>>("jobsDictionary");
             var tasksQueue = await this.stateManager_.GetOrAddAsync<IReliableConcurrentQueue<MapTask>>("tasksQueue");
-
-            JobObject job = new JobObject(sourceText, TASK_SIZE);
+            var allTasks = await this.stateManager_.GetOrAddAsync<IReliableDictionary<Guid, MapTask>>("allTasks");
 
             using (ITransaction tx = this.stateManager_.CreateTransaction())
             {
+
+                Guid jobGuid = System.Guid.NewGuid();
+                JobObject job = new JobObject(jobGuid);
+                MapTask task;
+
+                int cursorPos = 0;
+                while (cursorPos + TASK_SIZE < sourceText.Length)
+                {
+                    int nextCursorPos = cursorPos + TASK_SIZE;
+                    while (sourceText[nextCursorPos] != ' ')
+                    {
+                        nextCursorPos--;
+                    }
+
+                    task = new MapTask(jobGuid, sourceText.Substring(cursorPos, nextCursorPos - cursorPos));
+                    job.Tasks.Add(task.Uuid, false);
+
+                    await allTasks.AddAsync(tx, task.Uuid, task);
+                    await tasksQueue.EnqueueAsync(tx, task, ct);
+
+                    cursorPos = nextCursorPos + 1;
+                }
+                task = new MapTask(jobGuid, sourceText.Substring(cursorPos));
+                job.Tasks.Add(task.Uuid, false);
+
+                await allTasks.AddAsync(tx, task.Uuid, task);
+                await tasksQueue.EnqueueAsync(tx, task, ct);
+
                 try
                 {
                     await jobsDictionary.AddAsync(tx, job.Uuid, job, TimeSpan.FromSeconds(1), ct);
@@ -53,10 +80,7 @@
                 {
                     ServiceEventSource.Current.ServiceMessage(this.context_, e.Message);
                 }
-                foreach(var task in job.Tasks)
-                {
-                    await tasksQueue.EnqueueAsync(tx, task, ct);
-                }
+                
 
                 await tx.CommitAsync();
                 return new OkResult();
@@ -67,7 +91,6 @@
         [HttpGet("jobs")]
         public async Task<IActionResult> GetTaskFromQueue()
         {
-            ServiceEventSource.Current.ServiceMessage(this.context_, "GET api/Orchestrator/jobs called");
             var tasksQueue = await this.stateManager_.GetOrAddAsync<IReliableConcurrentQueue<MapTask>>("tasksQueue");
             using (var tx = this.stateManager_.CreateTransaction())
             {
@@ -91,22 +114,18 @@
         {
             var jobsDictionary = await this.stateManager_.GetOrAddAsync<IReliableDictionary<Guid, JobObject>>("jobsDictionary");
             var completeJobsQueue = await this.stateManager_.GetOrAddAsync<IReliableConcurrentQueue<string>>("completeJobsQueue");
-            bool isJobCompleted = false;
-            JobObject job = new JobObject();
+            var allTasks = await this.stateManager_.GetOrAddAsync<IReliableDictionary<Guid, MapTask>>("allTasks");
 
             using (ITransaction tx = this.stateManager_.CreateTransaction())
             {
-                var conditionalValue = await jobsDictionary.TryGetValueAsync(tx, uuid);
-                if(conditionalValue.HasValue)
+                var jobConditionalValue = await jobsDictionary.TryGetValueAsync(tx, uuid);
+                if(jobConditionalValue.HasValue)
                 {
-                    job = conditionalValue.Value;
-                    job.SetTaskCompleted(task);
-                    isJobCompleted = job.IsComplete;
+                    JobObject job = jobConditionalValue.Value;
+                    job.SetTaskCompleted(task.Uuid);
 
                     if(job.IsComplete)
                     {
-                        ServiceEventSource.Current.ServiceMessage(this.context_, $"Job completed");
-
                         // Job is complete, remove it, send the result to FrontEndSvc for now
                         var removeConditional = await jobsDictionary.TryRemoveAsync(tx, job.Uuid);
                         if(!removeConditional.HasValue)
@@ -114,16 +133,24 @@
                             // Retry, I guess?
                         }
 
+                        var counts = new List<Dictionary<string, int>>();
 
-                        List<Dictionary<string, int>> counts = job.Tasks.Select(t => t.Output).ToList();
+                        // Current task's Output field is null when taken from allTasks dictionary
+                        foreach (var taskUuid in job.Tasks.Keys)
+                        {
+                            MapTask t = (await allTasks.TryRemoveAsync(tx, taskUuid)).Value;
+
+                            counts.Add(t.Output ?? task.Output);
+                        }
+
                         string serialized = JsonConvert.SerializeObject(counts);
                         await completeJobsQueue.EnqueueAsync(tx, serialized);
 
                     }
                     else
                     {
-                        ServiceEventSource.Current.ServiceMessage(this.context_, $"Job not yet completed, only a task");
                         await jobsDictionary.SetAsync(tx, job.Uuid, job);
+                        await allTasks.SetAsync(tx, task.Uuid, task);
                     }
                     
                 }
@@ -163,6 +190,7 @@
             using (HttpClient httpClient = new HttpClient())
             {
                 string proxyUrl = $"http://localhost:19081/WordCount/FrontEndSvc/api/WordCount/complete";
+
                 // Contact FrontEndSvc and send result
                 using (HttpResponseMessage returnResponse = await httpClient.PostAsync(proxyUrl, new StringContent(wordCloudData.ToString(), UnicodeEncoding.UTF8, "application/json")))
                 {

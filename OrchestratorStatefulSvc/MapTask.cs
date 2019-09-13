@@ -10,19 +10,16 @@ namespace OrchestratorStatefulSvc
     public class MapTask
     { 
 
-        public MapTask()
-        {
-            // For Serialization
-        }
-        public MapTask(Guid parentUuid, int index, string input)
+        public MapTask(Guid parentUuid, string input)
         {
             this.ParentJobUuid = parentUuid;
-            this.Index = index;
             this.Input = input;
+            this.Uuid = System.Guid.NewGuid();
         }
 
+
         [DataMember]
-        public int Index { get; set; }
+        public Guid Uuid { get; set; }
         [DataMember]
         public string Input { get; set; }
         [DataMember]
