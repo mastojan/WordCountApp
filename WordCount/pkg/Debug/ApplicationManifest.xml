@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="WordCountType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric" ManifestId="11cd8f31-742c-440d-8688-9643f6826011">
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="WordCountType" ApplicationTypeVersion="1.0.1" xmlns="http://schemas.microsoft.com/2011/01/fabric" ManifestId="11cd8f31-742c-440d-8688-9643f6826011">
   <Parameters>
     <Parameter Name="ReducerStatelessSvc_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
     <Parameter Name="ReducerStatelessSvc_InstanceCount" DefaultValue="-1" />

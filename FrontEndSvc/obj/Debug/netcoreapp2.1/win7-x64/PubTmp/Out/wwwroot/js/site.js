@@ -7,10 +7,13 @@ var app = angular.module('WordCountApp', ['ui.bootstrap']);
 app.run(function () { });
 
 var time0, time1;
+var showSpinner = false;
 
 app.controller('WordCountController', ['$rootScope', '$scope', '$http', '$timeout', function ($rootScope, $scope, $http, $timeout) {
+
     $scope.process = function (sourceText) {
         time0 = performance.now();
+        showSpinner = true;
         $http.post('api/WordCount', "\"" + sourceText + "\"")
             .then(function (data, status) {
                                 
@@ -41,6 +44,7 @@ function startConnection(connection) {
 }
 
 function displayData(data) {
+    showSpinner = false;
     time1 = performance.now();
     console.log("Call took: " + (time1 - time0) + " milliseconds");
     console.log(data);

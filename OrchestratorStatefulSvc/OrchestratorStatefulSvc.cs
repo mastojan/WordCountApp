@@ -11,6 +11,7 @@ using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Data;
+using Microsoft.ServiceFabric.Data.Collections;
 
 namespace OrchestratorStatefulSvc
 {
@@ -50,5 +51,41 @@ namespace OrchestratorStatefulSvc
                     }))
             };
         }
+
+
+        protected override async Task RunAsync(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                try
+                {
+                    var jobsDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<Guid, JobObject>>("jobsDictionary");
+                    var tasksQueue = await this.StateManager.GetOrAddAsync<IReliableConcurrentQueue<MapTask>>("tasksQueue");
+                    var allTasks = await this.StateManager.GetOrAddAsync<IReliableDictionary<Guid, MapTask>>("allTasks");
+
+                    using (ITransaction tx = this.StateManager.CreateTransaction())
+                    {
+                        var enumerator = (await allTasks.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
+                        while(await enumerator.MoveNextAsync(cancellationToken))
+                        {
+                            if(enumerator.Current.Value.Output == null)
+                            {
+                                await tasksQueue.EnqueueAsync(tx, enumerator.Current.Value);
+                            }
+                        }
+                        await tx.CommitAsync();
+                    }
+
+                    await Task.Delay(TimeSpan.FromMilliseconds(3000), cancellationToken);
+
+                }
+                catch(TaskCanceledException e)
+                {
+                    ServiceEventSource.Current.ServiceMessage(this.Context, "OrchestratorStatefulSvc cancelled: " + e.StackTrace);
+                    break;
+                }
+            }
+        }
     }
+
 }
