@@ -63,52 +63,59 @@ namespace ReducerStatelessSvc
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                using (HttpClient httpClient = new HttpClient())
+                try
                 {
-                    string proxyUrl = $"http://localhost:19081/WordCount/OrchestratorStatefulSvc/api/Orchestrator/completeJobs";
-
-                    using (HttpResponseMessage httpResponse = await httpClient.GetAsync($"{proxyUrl}?PartitionKey=0&PartitionKind=Int64Range"))
+                    using (HttpClient httpClient = new HttpClient())
                     {
-                        if (httpResponse.StatusCode != HttpStatusCode.OK)
+                        string proxyUrl = $"http://localhost:19081/WordCount/OrchestratorStatefulSvc/api/Orchestrator/completeJobs";
+
+                        using (HttpResponseMessage httpResponse = await httpClient.GetAsync($"{proxyUrl}?PartitionKey=0&PartitionKind=Int64Range"))
                         {
-                            continue;
-                        }
-
-                        var responseContent = await httpResponse.Content.ReadAsStringAsync();
-                        List<Dictionary<string, int>> mappedItems = JsonConvert.DeserializeObject<List<Dictionary<string, int>>>(responseContent);
-
-                        Dictionary<string, int> completeCount = new Dictionary<string, int>();
-
-                        foreach(var item in mappedItems)
-                        {
-                            foreach(var kvPair in item)
+                            if (httpResponse.StatusCode != HttpStatusCode.OK)
                             {
-                                if(completeCount.ContainsKey(kvPair.Key))
-                                {
-                                    completeCount[kvPair.Key] += kvPair.Value;
-                                }
-                                else
-                                {
-                                    completeCount[kvPair.Key] = kvPair.Value;
-                                }
-                            }
-                        }
-
-                        var serializedOutput = JsonConvert.SerializeObject(completeCount);
-                        using (HttpResponseMessage putTaskResponse = await httpClient.PutAsync($"{proxyUrl}?PartitionKey=0&PartitionKind=Int64Range", new StringContent(serializedOutput, UnicodeEncoding.UTF8, "application/json")))
-                        {
-                            if (putTaskResponse.StatusCode != HttpStatusCode.OK)
-                            {
-                                // Error
-                                ServiceEventSource.Current.ServiceMessage(this.Context, "Task completion failed");
+                                continue;
                             }
 
+                            var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                            List<Dictionary<string, int>> mappedItems = JsonConvert.DeserializeObject<List<Dictionary<string, int>>>(responseContent);
+
+                            Dictionary<string, int> completeCount = new Dictionary<string, int>();
+
+                            foreach (var item in mappedItems)
+                            {
+                                foreach (var kvPair in item)
+                                {
+                                    if (completeCount.ContainsKey(kvPair.Key))
+                                    {
+                                        completeCount[kvPair.Key] += kvPair.Value;
+                                    }
+                                    else
+                                    {
+                                        completeCount[kvPair.Key] = kvPair.Value;
+                                    }
+                                }
+                            }
+
+                            var serializedOutput = JsonConvert.SerializeObject(completeCount);
+                            using (HttpResponseMessage putTaskResponse = await httpClient.PutAsync($"{proxyUrl}?PartitionKey=0&PartitionKind=Int64Range", new StringContent(serializedOutput, UnicodeEncoding.UTF8, "application/json")))
+                            {
+                                if (putTaskResponse.StatusCode != HttpStatusCode.OK)
+                                {
+                                    // Error
+                                    ServiceEventSource.Current.ServiceMessage(this.Context, "Task completion failed");
+                                }
+
+                            }
+
                         }
+
+                        await Task.Delay(TimeSpan.FromMilliseconds(100), cancellationToken);
 
                     }
-
-                    await Task.Delay(TimeSpan.FromMilliseconds(100), cancellationToken);
-
+                }
+                catch(TaskCanceledException e)
+                {
+                    ServiceEventSource.Current.ServiceMessage(this.Context, "ReducerStatelessSvc.RunAsync cancelled: " + e.StackTrace);
                 }
             }
         }

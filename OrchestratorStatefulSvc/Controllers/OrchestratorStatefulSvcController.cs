@@ -89,7 +89,6 @@
         [HttpPut("jobs/{uuid}")]
         public async Task<IActionResult> Put(Guid uuid, [FromBody] MapTask task)
         {
-            //ServiceEventSource.Current.ServiceMessage(this.context_, $"PUT api/Orchestrator/jobs/{uuid} called, task: " + Newtonsoft.Json.JsonConvert.SerializeObject(task));
             var jobsDictionary = await this.stateManager_.GetOrAddAsync<IReliableDictionary<Guid, JobObject>>("jobsDictionary");
             var completeJobsQueue = await this.stateManager_.GetOrAddAsync<IReliableConcurrentQueue<string>>("completeJobsQueue");
             bool isJobCompleted = false;
