@@ -77,10 +77,15 @@ namespace MapStatelessSvc
                             MapTask task = JsonConvert.DeserializeObject<MapTask>(await httpResponse.Content.ReadAsStringAsync());
 
                             // Process the task
+
                             MatchCollection collection = Regex.Matches(task.Input, @"\b\w+\b");
                             task.Output = new Dictionary<string, int>();
                             foreach (Match match in collection)
                             {
+                                // Simulate additional work
+                                //for (int i = 0; i < 10000; i++)
+                                  //  for (int j = 0; j < 10000; j++) ;
+
                                 string s = match.Value.ToLower();
                                 if (task.Output.ContainsKey(s))
                                 {
